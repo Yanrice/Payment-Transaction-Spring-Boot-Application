@@ -111,17 +111,17 @@ The API is accessible at `/api/v1/transactions`. Below are the main endpoints:
 Valid statuses: **PENDING**, **PROCESSING**, **COMPLETED**, **FAILED**, **CANCELLED**, **REFUNDED**
 
 * Update Transaction Status:
-** `PUT /api/v1/transactions/{id}/status`
-** Body: `UpdateTransactionStatusRequest` (JSON)
-** Example:
+* `PUT /api/v1/transactions/{id}/status`
+* Body: `UpdateTransactionStatusRequest` (JSON)
+* Example:
 `{
   "status": "COMPLETED"
 }`
-** Get Transactions by Date Range:
+* Get Transactions by Date Range:
 `GET /api/v1/transactions/date-range?startDate=2025-01-01T00:00:00&endDate=2025-12-31T23:59:59`
-** Get Total Amount by Merchant and Status:
+* Get Total Amount by Merchant and Status:
 `GET /api/v1/transactions/merchant/{merchantId}/total?status=COMPLETED`
-** Delete Transaction:
+* Delete Transaction:
 `DELETE /api/v1/transactions/{id}`
 ## Mock Payment Processing
 
