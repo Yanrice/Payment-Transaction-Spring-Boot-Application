@@ -1,6 +1,7 @@
 package com.example.payment.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -10,47 +11,36 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
-@Table(name = "transactions")
+@Document(collection = "transactions")
 public class Transaction {
     
     @Id
     private String id;
     
     @NotBlank(message = "Merchant ID is required")
-    @Column(name = "merchant_id", nullable = false)
     private String merchantId;
     
     @NotBlank(message = "Customer ID is required")
-    @Column(name = "customer_id", nullable = false)
     private String customerId;
     
     @NotNull(message = "Amount is required")
     @Positive(message = "Amount must be positive")
-    @Column(name = "amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
     
     @NotBlank(message = "Currency is required")
-    @Column(name = "currency", nullable = false, length = 3)
     private String currency;
     
     @NotBlank(message = "Payment method is required")
-    @Column(name = "payment_method", nullable = false)
     private String paymentMethod;
     
-    @Column(name = "description")
     private String description;
     
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
     private TransactionStatus status;
     
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
     
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     
     public Transaction() {
