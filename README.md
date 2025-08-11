@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Payment Transaction Service is a Spring Boot application designed to handle payment transactions. It provides a RESTful API to create, retrieve, update, and delete transactions, with support for filtering by merchant, customer, status, and date range. The application uses an in-memory H2 database for persistence and includes validation, error handling, and mock payment processing logic.
+The Payment Transaction Service is a Spring Boot application designed to handle payment transactions using MongoDB as the database. It provides a RESTful API to create, retrieve, update, and delete transactions, with support for filtering by merchant, customer, status, and date range. The application supports both local MongoDB and MongoDB Atlas (free tier) for data storage and includes validation, error handling, and mock payment processing logic.
 
 ## Features
 
@@ -18,8 +18,8 @@ The Payment Transaction Service is a Spring Boot application designed to handle 
 
 * Java: 21
 * Spring Boot: 3.2.0
-* Spring Data JPA: For database operations
-* H2 Database: In-memory database for development
+* Spring Data MongoDB: For MongoDB operations
+* MongoDB: Local or Atlas free tier for data storage
 * Maven: Build tool
 * Jakarta Validation: For input validation
 * Jackson: For JSON serialization/deserialization
@@ -55,19 +55,38 @@ payment-transaction-service/
 ## Prerequisites
 
 * Java 21: Ensure Java 21 is installed.
-* Required for building the project.
+* Maven: Required for building the project.
 * Git: For cloning the repository.
+* MongoDB: Either a local MongoDB instance (version 4.4 or higher) or a MongoDB Atlas free tier account.
 
 ## Setup Instructions
+
+### Option 1: Local MongoDB Setup 
+
+Install MongoDB Locally:
+* Download and install MongoDB Community Edition from MongoDB Download Center.
+  
+* Start the MongoDB server:
+  
+`mongod`
 
 * Clone the Repository:
 
 `git clone https://github.com/your-username/payment-transaction-service.git`
 `cd payment-transaction-service`
 
+* **Configure MongoDB:**
+
+* Ensure the application.properties file is set for local MongoDB (default settings):
+  `properties`
+  
+`spring.data.mongodb.host=localhost`
+`spring.data.mongodb.port=27017`
+`spring.data.mongodb.database=paymentdb`
+
 * Build the Project:
 
-`mvn clean install`
+bash : `mvn clean install`
 
 * Run the Application:
 
@@ -78,9 +97,13 @@ The application will start on `http://localhost:8080`.
 * Access the H2 Console (for development):
 
 ** URL: `http://localhost:8080/h2-console`
-** JDBC URL: `jdbc:h2:mem:paymentdb`
-** Username: `sa`
-** Password: (leave blank)
+
+### Option 2: MongoDB Atlas Free Tier Setup
+
+* Create a MongoDB Atlas Account:
+* Sign up at MongoDB Atlas.
+* Create a free tier cluster and note the connection URI (format:
+`mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>)`.
 
 ## API Endpoints
 
@@ -134,8 +157,7 @@ The `TransactionService` includes a mock payment processing method (`mockPayment
 The `application.properties` file contains configurations for:
 
 * Server port: `8080`
-* H2 database: In-memory database (`jdbc:h2:mem:paymentdb`)
-*  **JPA** settings: Auto-create and drop tables, show SQL queries
+* MongoDB: Configurable for local (`localhost:27017`) or Atlas (URI-based connection)
 *  Logging: Debug level for the application, info level for Spring web
 
 ## Testing
@@ -146,7 +168,10 @@ Run tests using:
 
 The project includes the `spring-boot-starter-test` dependency for unit and integration testing.
 
-## Contributing
+Note that tests may require a running MongoDB instance or a mock MongoDB setup (e.g., using `embedded-mongodb`).
+
+## Contributing 
+
 * Fork the repository.
 * Create a new branch (git checkout -b feature/your-feature).
 * Commit your changes (git commit -m "Add your feature").
