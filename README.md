@@ -140,9 +140,9 @@ The application will start on `http://localhost:8080`.
 
 The API is accessible at `/api/v1/transactions`. Below are the main endpoints:
 * Create Transaction:
-** `POST /api/v1/transactions`
-** Body: `CreateTransactionRequest` (JSON)
-** Example:
+* `POST /api/v1/transactions`
+* Body: `CreateTransactionRequest` (JSON)
+* Example:
 
 `{
   "merchantId": "merchant123",
@@ -153,30 +153,46 @@ The API is accessible at `/api/v1/transactions`. Below are the main endpoints:
   "description": "Test transaction"
 }`
 * Get Transaction by ID:
+  
 **`GET /api/v1/transactions/{id}`**
+
 * Get All Transactions (with pagination and sorting):
+  
 **`GET /api/v1/transactions?page=0&size=10&sortBy=createdAt&sortDir=desc`**
 * Get Transactions by Merchant:
+  
 **`GET /api/v1/transactions/merchant/{merchantId}`**
+
 * Get Transactions by Customer:
+  
 **`GET /api/v1/transactions/customer/{customerId}`**
+
 * Get Transactions by Status:
+  
 **`GET /api/v1/transactions/status/{status}`**
 
 Valid statuses: **PENDING**, **PROCESSING**, **COMPLETED**, **FAILED**, **CANCELLED**, **REFUNDED**
 
 * Update Transaction Status:
+  
 * `PUT /api/v1/transactions/{id}/status`
 * Body: `UpdateTransactionStatusRequest` (JSON)
+  
 * Example:
 `{
   "status": "COMPLETED"
 }`
+
 * Get Transactions by Date Range:
+  
 `GET /api/v1/transactions/date-range?startDate=2025-01-01T00:00:00&endDate=2025-12-31T23:59:59`
+
 * Get Total Amount by Merchant and Status:
+  
 `GET /api/v1/transactions/merchant/{merchantId}/total?status=COMPLETED`
+
 * Delete Transaction:
+  
 `DELETE /api/v1/transactions/{id}`
 
 ## Mock Payment Processing
@@ -212,3 +228,7 @@ Note that tests may require a running MongoDB instance or a mock MongoDB setup (
 ## License
 
 This project is licensed under the MIT License.
+
+## About
+
+Payment Transaction Service using Spring Boot and MongoDB for handling payment transactions with RESTful APIs.
