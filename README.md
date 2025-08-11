@@ -61,167 +61,96 @@ payment-transaction-service/
 
 * Clone the Repository:
 
-**git clone https://github.com/your-username/payment-transaction-service.git**
-**cd payment-transaction-service**
+`git clone https://github.com/your-username/payment-transaction-service.git`
+`cd payment-transaction-service`
 
 * Build the Project:
 
-**mvn clean install**
+`mvn clean install`
 
 * Run the Application:
 
-**mvn spring-boot:run**
+`mvn spring-boot:run`
 
-The application will start on **http://localhost:8080**.
+The application will start on `http://localhost:8080`.
 
-*Access the H2 Console (for development):
+* Access the H2 Console (for development):
 
-** URL: **http://localhost:8080/h2-console**
-** JDBC URL: **jdbc:h2:mem:paymentdb**
-** Username: **sa**
+** URL: `http://localhost:8080/h2-console`
+** JDBC URL: `jdbc:h2:mem:paymentdb`
+** Username: `sa`
 ** Password: (leave blank)
 
 ## API Endpoints
 
-The API is accessible at **/api/v1/transactions**. Below are the main endpoints:
+The API is accessible at `/api/v1/transactions`. Below are the main endpoints:
 * Create Transaction:
-** **POST /api/v1/transactions**
-** Body: **CreateTransactionRequest** (JSON)
+** `POST /api/v1/transactions`
+** Body: `CreateTransactionRequest` (JSON)
 ** Example:
 
-**{
+`{
   "merchantId": "merchant123",
   "customerId": "customer456",
   "amount": 100.00,
   "currency": "USD",
   "paymentMethod": "CREDIT_CARD",
   "description": "Test transaction"
-}**
+}`
 * Get Transaction by ID:
-**GET /api/v1/transactions/{id}**
+**`GET /api/v1/transactions/{id}`**
 * Get All Transactions (with pagination and sorting):
-**GET /api/v1/transactions?page=0&size=10&sortBy=createdAt&sortDir=desc**
+**`GET /api/v1/transactions?page=0&size=10&sortBy=createdAt&sortDir=desc`**
 * Get Transactions by Merchant:
-**GET /api/v1/transactions/merchant/{merchantId}**
+**`GET /api/v1/transactions/merchant/{merchantId}`**
 * Get Transactions by Customer:
-**GET /api/v1/transactions/customer/{customerId}**
+**`GET /api/v1/transactions/customer/{customerId}`**
 * Get Transactions by Status:
-**GET /api/v1/transactions/status/{status}**
+**`GET /api/v1/transactions/status/{status}`**
 
+Valid statuses: **PENDING**, **PROCESSING**, **COMPLETED**, **FAILED**, **CANCELLED**, **REFUNDED**
 
-
-Valid statuses: PENDING, PROCESSING, COMPLETED, FAILED, CANCELLED, REFUNDED
-
-
-
-Update Transaction Status:
-
-
-
-
-
-PUT /api/v1/transactions/{id}/status
-
-
-
-Body: UpdateTransactionStatusRequest (JSON)
-
-
-
-Example:
-
-{
+* Update Transaction Status:
+** `PUT /api/v1/transactions/{id}/status`
+** Body: `UpdateTransactionStatusRequest` (JSON)
+** Example:
+`{
   "status": "COMPLETED"
-}
+}`
+** Get Transactions by Date Range:
+`GET /api/v1/transactions/date-range?startDate=2025-01-01T00:00:00&endDate=2025-12-31T23:59:59`
+** Get Total Amount by Merchant and Status:
+`GET /api/v1/transactions/merchant/{merchantId}/total?status=COMPLETED`
+** Delete Transaction:
+`DELETE /api/v1/transactions/{id}`
+## Mock Payment Processing
 
+The `TransactionService` includes a mock payment processing method (`mockPaymentProcessing`) that simulates payment processing with an 80% success rate, randomly setting the transaction status to **COMPLETED** or **FAILED**.
 
+## Configuration
 
-Get Transactions by Date Range:
+The `application.properties` file contains configurations for:
 
+* Server port: `8080`
+* H2 database: In-memory database (`jdbc:h2:mem:paymentdb`)
+*  **JPA** settings: Auto-create and drop tables, show SQL queries
+*  Logging: Debug level for the application, info level for Spring web
 
-
-
-
-GET /api/v1/transactions/date-range?startDate=2025-01-01T00:00:00&endDate=2025-12-31T23:59:59
-
-
-
-Get Total Amount by Merchant and Status:
-
-
-
-
-
-GET /api/v1/transactions/merchant/{merchantId}/total?status=COMPLETED
-
-
-
-Delete Transaction:
-
-
-
-
-
-DELETE /api/v1/transactions/{id}
-
-Mock Payment Processing
-
-The TransactionService includes a mock payment processing method (mockPaymentProcessing) that simulates payment processing with an 80% success rate, randomly setting the transaction status to COMPLETED or FAILED.
-
-Configuration
-
-The application.properties file contains configurations for:
-
-
-
-
-
-Server port: 8080
-
-
-
-H2 database: In-memory database (jdbc:h2:mem:paymentdb)
-
-
-
-JPA settings: Auto-create and drop tables, show SQL queries
-
-
-
-Logging: Debug level for the application, info level for Spring web
-
-Testing
+## Testing
 
 Run tests using:
 
-mvn test
+`mvn test`
 
-The project includes the spring-boot-starter-test dependency for unit and integration testing.
+The project includes the `spring-boot-starter-test` dependency for unit and integration testing.
 
-Contributing
+## Contributing
+* Fork the repository.
+* Create a new branch (git checkout -b feature/your-feature).
+* Commit your changes (git commit -m "Add your feature").
+* Push to the branch (git push origin feature/your-feature).
+* Create a pull request.
 
-
-
-
-
-Fork the repository.
-
-
-
-Create a new branch (git checkout -b feature/your-feature).
-
-
-
-Commit your changes (git commit -m "Add your feature").
-
-
-
-Push to the branch (git push origin feature/your-feature).
-
-
-
-Create a pull request.
-
-License
+## License
 
 This project is licensed under the MIT License.
