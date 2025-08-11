@@ -123,6 +123,7 @@ Valid statuses: **PENDING**, **PROCESSING**, **COMPLETED**, **FAILED**, **CANCEL
 `GET /api/v1/transactions/merchant/{merchantId}/total?status=COMPLETED`
 * Delete Transaction:
 `DELETE /api/v1/transactions/{id}`
+
 ## Mock Payment Processing
 
 The `TransactionService` includes a mock payment processing method (`mockPaymentProcessing`) that simulates payment processing with an 80% success rate, randomly setting the transaction status to **COMPLETED** or **FAILED**.
