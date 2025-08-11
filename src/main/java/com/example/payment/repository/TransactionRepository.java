@@ -4,9 +4,8 @@ import com.example.payment.model.Transaction;
 import com.example.payment.model.TransactionStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface TransactionRepository extends JpaRepository<Transaction, String> {
+public interface TransactionRepository extends MongoRepository<Transaction, String> {
     
     List<Transaction> findByMerchantId(String merchantId);
     
@@ -28,11 +27,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
     
     Page<Transaction> findByStatus(TransactionStatus status, Pageable pageable);
     
-    @Query("SELECT t FROM Transaction t WHERE t.createdAt BETWEEN :startDate AND :endDate")
-    List<Transaction> findByCreatedAtBetween(@Param("startDate") LocalDateTime startDate, 
-                                           @Param("endDate") LocalDateTime endDate);
+    @Query("{'createdAt': { $gte: ?0, $lte: ?1 }}")
+    List<Transaction> findByCreatedAtBetween(LocalDateTime startDate, LocalDateTime endDate);
     
-    @Query("SELECT SUM(t.amount) FROM Transaction t WHERE t.merchantId = :merchantId AND t.status = :status")
-    BigDecimal sumAmountByMerchantIdAndStatus(@Param("merchantId") String merchantId, 
-                                            @Param("status") TransactionStatus status);
+    @Query("{'merchantId': ?0, 'status': ?1}")
+    List<Transaction> findByMerchantIdAndStatus(String merchantId, TransactionStatus status);
 }
