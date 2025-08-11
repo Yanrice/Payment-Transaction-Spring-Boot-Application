@@ -29,30 +29,6 @@ The Payment Transaction Service is a Spring Boot application designed to handle 
 ![](Images/diagram.png)
 ![](Images/Screenshot%202025-08-11%20145451.png)
 
-payment-transaction-service/
-├── pom.xml
-├── src/
-│   ├── main/
-│   │   ├── java/com/example/payment/
-│   │   │   ├── controller/
-│   │   │   │   └── TransactionController.java
-│   │   │   ├── dto/
-│   │   │   │   ├── ApiResponse.java
-│   │   │   │   ├── CreateTransactionRequest.java
-│   │   │   │   └── UpdateTransactionStatusRequest.java
-│   │   │   ├── exception/
-│   │   │   │   └── GlobalExceptionHandler.java
-│   │   │   ├── model/
-│   │   │   │   ├── Transaction.java
-│   │   │   │   └── TransactionStatus.java
-│   │   │   ├── repository/
-│   │   │   │   └── TransactionRepository.java
-│   │   │   ├── service/
-│   │   │   │   └── TransactionService.java
-│   │   │   └── PaymentTransactionServiceApplication.java
-│   │   └── resources/
-│   │       └── application.properties
-└── README.md
 
 ## Prerequisites
 
