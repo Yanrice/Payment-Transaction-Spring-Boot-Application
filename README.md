@@ -26,6 +26,7 @@ The Payment Transaction Service is a Spring Boot application designed to handle 
 
 ## Project Structure
 
+![](Images/diagram.png)
 payment-transaction-service/
 ├── pom.xml
 ├── src/
