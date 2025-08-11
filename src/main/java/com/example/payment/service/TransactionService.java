@@ -79,8 +79,10 @@ public class TransactionService {
     }
     
     public BigDecimal getTotalAmountByMerchantAndStatus(String merchantId, TransactionStatus status) {
-        BigDecimal total = transactionRepository.sumAmountByMerchantIdAndStatus(merchantId, status);
-        return total != null ? total : BigDecimal.ZERO;
+        List<Transaction> transactions = transactionRepository.findByMerchantIdAndStatus(merchantId, status);
+        return transactions.stream()
+                .map(Transaction::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
     
     public boolean deleteTransaction(String id) {
