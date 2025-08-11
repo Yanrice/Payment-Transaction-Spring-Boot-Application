@@ -8,22 +8,22 @@ The Payment Transaction Service is a Spring Boot application designed to handle 
 
 * Create new transactions with details such as merchant ID, customer ID, amount, currency, payment method, and description.
 * Retrieve transactions by ID, merchant, customer, status, or date range.
+* Update transaction status (e.g., PENDING, COMPLETED, FAILED).
 * Calculate total transaction amounts for a merchant by status.
 * Delete transactions.
 * Input validation and comprehensive error handling.
 * Pagination and sorting for transaction retrieval.
-* H2 database console for development and testing.
 
 ## Technologies Used
 
 * Java: 21
 * Spring Boot: 3.2.0
 * Spring Data MongoDB: For MongoDB operations
-* MongoDB: Local or Atlas free tier for data storage
+* MongoDB: Local (version 4.4 or higher) or Atlas free tier for data storage
 * Maven: Build tool
 * Jakarta Validation: For input validation
 * Jackson: For JSON serialization/deserialization
-
+  
 ## Project Structure
 
 ![](Images/diagram.png)
@@ -70,6 +70,8 @@ Install MongoDB Locally:
   
 `mongod`
 
+Ensure MongoDB is running on `localhost:27017`.
+
 * Clone the Repository:
 
 `git clone https://github.com/your-username/payment-transaction-service.git`
@@ -86,7 +88,9 @@ Install MongoDB Locally:
 
 * Build the Project:
 
-bash : `mvn clean install`
+bash :
+
+`mvn clean install`
 
 * Run the Application:
 
@@ -100,10 +104,37 @@ The application will start on `http://localhost:8080`.
 
 ### Option 2: MongoDB Atlas Free Tier Setup
 
-* Create a MongoDB Atlas Account:
+* 1. Create a MongoDB Atlas Account:
+     
 * Sign up at MongoDB Atlas.
 * Create a free tier cluster and note the connection URI (format:
 `mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>)`.
+
+* 2. Clone the Repository:
+
+`git clone https://github.com/Yanrice/Payment-Transaction-Spring-Boot-Application.git`
+
+`cd payment-transaction-service`
+
+* 3 .Configure MongoDB Atlas:
+
+* Update `application.properties` with your Atlas connection URI:
+
+`spring.data.mongodb.uri=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/paymentdb?retryWrites=true&w=majority`
+
+* Comment out or remove the local MongoDB settings (`host`, `port`, `database`).
+
+* 4. Build the Project:
+
+`mvn clean install`
+
+* 5. Run the Application:
+
+`mvn spring-boot:run`
+
+The application will start on `http://localhost:8080`.
+
+  
 
 ## API Endpoints
 
